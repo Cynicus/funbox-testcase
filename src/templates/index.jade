@@ -1,0 +1,18 @@
+extends base
+
+//- Item mixins parametr: contents, weight, status
+//- contents - "с курой" etc., there isn't default value
+//- weight - weight equal 2, 5 or default value "0,5"
+//- status - set disabled if needs mark as "Out of stock"
+
+block content
+	.container
+		.row
+			.col-sm-12.text-center
+				h1.page-title Ты сегодня покормил кота?
+			.col-lg-4
+				+item("с курой", 2)
+			.col-lg-4.col-sm-6
+				+item("с фуа-гра", 0.5, "disabled")
+			.col-lg-4.col-sm-6
+				+item("с рыбой", 5)

@@ -1,0 +1,205 @@
+@import "../bootstrap/variables"
+
+// Colors variable
+$bg = #f2f2f2
+$default-color = #1698d9
+$default-text-color = #666
+$default-hover-color = #2ea8e6
+$selected-color = #d91667
+$selected-hover-color = #e62e7a
+$disabled-color = #b3b3b3
+$disabled-bottom-color = #ffff66
+
+@font-face
+    font-family 'exo_2.0thin'
+    src url('fonts/exo2.0-thin.eot')
+    src url('fonts/exo2.0-thin.eot?#iefix') format('embedded-opentype'),
+         url('fonts/exo2.0-thin.woff2') format('woff2'),
+         url('fonts/exo2.0-thin.woff') format('woff'),
+         url('fonts/exo2.0-thin.ttf') format('truetype'),
+         url('fonts/exo2.0-thin.svg#exo_2.0thin') format('svg')
+    font-weight normal
+    font-style normal
+
+
+html
+	min-height 100vh
+	background url(../images/bg.png) no-repeat center center fixed
+	background-size cover
+
+body
+	background transparent // Need change this option in Bootrstrap
+	height 100vh
+
+@media screen and (min-width: $screen-lg)
+	.container
+		position relative
+		top 50%
+		transform translateY(-50%)
+
+// Prevent header floating
+.col-xs-12, .col-sm-12
+	float none
+
+// A little fix for 320-350 width mobile screen
+@media screen and (max-width: 350px)
+	.container, [class^="col-"]
+		padding-left 0
+		padding-right 0
+	.row
+		margin-left 0
+		margin-right 0
+
+.page-title
+	font-family "exo_2.0thin"
+	color white
+	margin-top 7px
+	margin-bottom 23px
+	cursor default
+
+// Item
+.item
+	width 320px
+	height 512px
+	margin-left auto
+	margin-right auto
+	margin-bottom 30px
+	position relative
+
+	// Content block
+	.item-content
+		height 480px
+		background transparent url(../images/koteg.jpg) no-repeat 4px 208px
+		cursor pointer
+
+
+	// Background and border
+	.item-bg, .item-border
+		position absolute
+		top 0
+		left 0
+	.item-bg
+		z-index -1
+	path.bg
+		fill $bg
+	path.border
+		fill $default-color
+		cursor pointer
+	path.transparent
+		fill rgba(255,255,255, 0)
+		cursor pointer
+
+	// Item content
+	.item-text
+		padding-top 19px
+		margin-left 49px
+		.slogan
+			color $default-text-color
+			font-size 16px
+			.default
+				display block
+			.selected.hover
+				display none
+		.title
+			font-size 48px
+			font-weight bold
+			margin-top -4px
+		.subtitle
+			font-size 24px
+			font-weight bold
+			margin-top -11px
+		.portions
+			color $default-text-color
+			margin-top 10px
+		.gift, .additional
+			color $default-text-color
+			margin-top -4px
+
+
+	// Weight
+	.item-weight
+		position absolute
+		width 80px
+		height 80px
+		border-radius 50%
+		background-color $default-color
+		text-align center
+		color white
+		top 385px
+		left 225px
+		.item-weight-value
+			font-size 43px
+		.item-weight-dim
+			font-size 21px
+			margin-top -16px
+
+	// Bottom line
+	.item-bottom-text
+		margin-top 11px
+		font-size 13px
+		color #fff
+		cursor default
+		.buynow
+			color $default-color
+			display inline-block
+			border-bottom 1px dashed $default-color
+			margin-bottom -1px
+			&:hover
+				text-decoration none
+		.default
+			display block
+		.selected
+			display none
+		.disabled
+			display none
+
+	// Item hover
+	&:hover
+		path.border
+			fill $default-hover-color
+		.item-weight
+			background $default-hover-color
+		.item-bottom-text .buynow
+			color $default-hover-color
+
+	// Selected
+	&.selected
+		path.border
+			fill $selected-color
+		.item-weight
+			background $selected-color
+		.item-bottom-text
+			.default
+				display none
+			.selected
+				display block
+			.buynow
+				color $selected-color
+		&.hover-ready:hover
+			path.border
+				fill $selected-hover-color
+			.slogan
+				.default
+					display none
+				.selected
+					color $selected-hover-color
+					display block
+			.item-weight
+				background $selected-hover-color
+			.item-bottom-text .buynow
+				color $selected-hover-color
+
+	// Disabled
+	&.disabled
+		.item-content
+			opacity 0.5
+			color $disabled-color
+		path
+			cursor default
+		path.border
+			fill $disabled-color
+		.item-weight
+			background $disabled-color
+		.item-bottom-text
+			color $disabled-bottom-color
+

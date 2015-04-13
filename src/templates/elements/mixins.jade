@@ -1,0 +1,50 @@
+mixin item(contents, weight, status)
+	.item(class=status)
+		.item-bg
+			svg(width=320, height=480 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink")
+				path.bg(d="M 11,480 C 5,480 0,475 0,469 L 0,45 L 45,0 L 309,0 C 315,0 320,5 320,11 L 320,469 C 320,475 315,480 309,480 Z")
+		.item-content
+			.item-text
+				.slogan
+					.default Сказочное заморское явство
+					.selected.hover Котэ не одобряет?
+				.title Нямушка
+				//Contents output
+				.subtitle= contents
+				//Portions and gift options output, depends from weight
+				if  weight == 5
+					.portions 100 порций
+					.gift 5 мышей в подарок
+					.additional Заказчик доволен
+				else if weight == 2
+					.portions 40 порций
+					.gift 2 мыши в подарок
+				else
+					- var weight = "0,5"
+					.portions 10 порций
+					.gift Мышь в подарок
+			// Weight output
+			.item-weight
+				.item-weight-value= weight
+				.item-weight-dim кг
+		.item-bottom-text.text-center
+			if status
+				// Contents ouput inside line
+				div Печалька, #{contents} закончился
+			else
+				.default
+					| Чего сидишь? Порадуй котэ,&nbsp;
+					a.buynow(href="#") купи.
+				.selected
+					// Contents depends sentences
+					if contents == "с курой"
+						| Филе из цыплят с трюфелями в бульоне
+					else if contents == "с рыбой"
+						| Головы щучьи с чесноком да свежайшая сёмгушка.
+					else
+						| Печень утки разварная с артишоками.
+
+		.item-border
+			svg(width=320, height=480 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink")
+				path.transparent(d="M 4,469 C 7,476 4,473 11,476 L 309,476 C 313,476 316,473 316,469 L 316,11 C 313,4 316,7 309,4 L 46,4 L 4,46 L 4,469")
+				path.border(d="M 11,480 C 5,480 0,475 0,469 L 0,45 L 45,0 L 309,0 C 315,0 320,5 320,11 L 320,469 C 320,475 315,480 309,480 L 11,480 M 4,469 C 7,476 4,473 11,476 L 309,476 C 313,476 316,473 316,469 L 316,11 C 313,4 316,7 309,4 L 46,4 L 4,46 L 4,469")
