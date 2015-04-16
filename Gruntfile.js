@@ -9,15 +9,6 @@ module.exports = function (grunt){
 		},
 
 		stylus: {
-			bootstrap: {
-				options: {
-					compress: false,
-					paths: ['src/styles']
-				},
-				files: {
-					'dist/css/bootstrap.css': 'src/styles/bootstrap/bootstrap.styl'
-				}
-			},
 			main: {
 				options: {
 					compress: false,
@@ -50,7 +41,6 @@ module.exports = function (grunt){
 		cmq: {
 			dist: {
 				files: [{
-					'dist/css/bootstrap.css': ['dist/css/bootstrap.css'],
 					'dist/css/main.css': ['dist/css/main.css']
 				}]
 			}
@@ -113,15 +103,6 @@ module.exports = function (grunt){
 					filter: 'isFile'
 				}]
 			},
-			images: {
-				files: [{
-					expand: true,
-					cwd: 'src/images',
-					src: ['**/*.{png,jpg,jpeg,gif,svg}'],
-					dest: 'dist/images',
-					filter: 'isFile'
-				}]
-			},
 			fonts: {
 				files: [{
 					expand: true,
@@ -133,14 +114,19 @@ module.exports = function (grunt){
 			},
 		},
 
-		// imagemin: {
-		// 	files: {
-		// 		expand: true,
-		// 		cwd: 'src/images',
-		// 		src: ['**/*.{png,jpg,gif}'],
-		// 		dest: 'result/images'
-		// 	}
-		// },
+		imagemin: {
+			options: {
+				progressive: true
+			},
+			images: {
+				files: [{
+					expand: true,
+					cwd: 'src/images',
+					src: ['**/*.{png,jpg,gif}'],
+					dest: 'dist/images'
+				}]
+			}
+		},
 
 		browserSync: {
 			dist: {
@@ -212,7 +198,7 @@ module.exports = function (grunt){
 			},
 			images: {
 				files: ['src/images/**/*'],
-				tasks: ['newer:copy:images']
+				tasks: ['newer:imagemin']
 			},
 
 		}
@@ -221,13 +207,6 @@ module.exports = function (grunt){
 
 	require('load-grunt-tasks')(grunt);
 
-	// grunt.loadNpmTasks('grunt-contrib-clean');
-	// grunt.loadNpmTasks('grunt-contrib-stylus');
-	// grunt.loadNpmTasks('grunt-autoprefixer');
-	// grunt.loadNpmTasks('grunt-combine-media-queries');
-	// grunt.loadNpmTasks('grunt-csscomb');
-	// grunt.loadNpmTasks('grunt-contrib-jade');
-
-	grunt.registerTask('default', ['clean', 'stylus', 'autoprefixer', 'cmq', 'csscomb', 'jade', 'jshint', 'copy', 'browserSync', 'watch']);
+	grunt.registerTask('default', ['clean', 'stylus', 'autoprefixer', 'cmq', 'csscomb', 'jade', 'jshint', 'copy', 'imagemin', 'browserSync', 'watch']);
 
 };
