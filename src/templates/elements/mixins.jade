@@ -6,7 +6,7 @@ mixin item(contents, weight, status)
 		.item-content
 			.item-text
 				.slogan
-					.default Сказочное заморское явство
+					.default Сказочное заморское яство
 					.selected.hover Котэ не одобряет?
 				.title Нямушка
 				//Contents output
@@ -28,13 +28,15 @@ mixin item(contents, weight, status)
 				.item-weight-value= weight
 				.item-weight-dim кг
 		.item-bottom-text.text-center
-			if status
+			if status == "disabled"
 				// Contents ouput inside line
 				div Печалька, #{contents} закончился
 			else
 				.default
 					| Чего сидишь? Порадуй котэ,&nbsp;
-					a.buynow(href="#") купи.
+					a.buynow(href="#")
+						span.link-border купи
+						|.
 				.selected
 					// Contents depends sentences
 					if contents == "с курой"

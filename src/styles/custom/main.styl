@@ -1,4 +1,4 @@
-@import "../bootstrap/variables"
+@import "normalize"
 
 // Colors variable
 $bg = #f2f2f2
@@ -9,6 +9,13 @@ $selected-color = #d91667
 $selected-hover-color = #e62e7a
 $disabled-color = #b3b3b3
 $disabled-bottom-color = #ffff66
+
+// Width  variables
+$item-width = 320px
+$small = 768px
+$medium = 960px
+$large = 1200px
+
 
 @font-face
     font-family 'exo_2.0thin'
@@ -21,40 +28,60 @@ $disabled-bottom-color = #ffff66
     font-weight normal
     font-style normal
 
+*
+	box-sizing border-box
+	&:before, &:after
+		box-sizing border-box
 
 html
 	min-height 100vh
 	background url(../images/bg.png) no-repeat center center fixed
 	background-size cover
+	font-family "Trebuchet MS", Helvetica, sans-serif
+	font-size 14px
+	line-height 1.42857
+	@media screen and (min-width: $large)
+		max-height 100vh
 
 body
-	background transparent // Need change this option in Bootrstrap
+	height 100%
 	height 100vh
 
-@media screen and (min-width: $screen-lg)
-	.container
+.container
+	margin-left auto
+	margin-right auto
+	overflow hidden
+	width $item-width
+	@media screen and (min-width: $small)
+		width $small
+	@media screen and (min-width: $medium)
+		width $medium
+	@media screen and (min-width: $large)
+		width $large
 		position relative
 		top 50%
 		transform translateY(-50%)
 
-// Prevent header floating
-.col-xs-12, .col-sm-12
-	float none
+@media screen and (min-width: $small)
+	.small
+		width ( 100% / 2 )
+		float left
+@media screen and (min-width: $large)
+	.large
+		width ( 100% / 3 )
+		float left
 
-// A little fix for 320-350 width mobile screen
-@media screen and (max-width: 350px)
-	.container, [class^="col-"]
-		padding-left 0
-		padding-right 0
-	.row
-		margin-left 0
-		margin-right 0
+.text-center
+	text-align center
 
 .page-title
+	font-size 36px
+	font-weight normal
 	font-family "exo_2.0thin"
 	color white
-	margin-top 7px
-	margin-bottom 23px
+	text-shadow 1px 1px 0 #000, -1px 1px 0 #000, 0 1px 0 #000
+	margin-top 0px
+	margin-bottom 17px
 	cursor default
 
 // Item
@@ -69,9 +96,16 @@ body
 	// Content block
 	.item-content
 		height 480px
-		background transparent url(../images/koteg.jpg) no-repeat 4px 208px
 		cursor pointer
-
+		&:after
+			content ""
+			background transparent url(../images/koteg.jpg) no-repeat 4px 208px
+			position absolute
+			left 0
+			top 0
+			right 0
+			bottom 0
+			z-index -1
 
 	// Background and border
 	.item-bg, .item-border
@@ -92,7 +126,7 @@ body
 	// Item content
 	.item-text
 		padding-top 19px
-		margin-left 49px
+		margin-left 46px
 		.slogan
 			color $default-text-color
 			font-size 16px
@@ -136,14 +170,18 @@ body
 	// Bottom line
 	.item-bottom-text
 		margin-top 11px
+		margin-right 4px
 		font-size 13px
 		color #fff
+		text-shadow 1px 1px 0 #000, -1px 1px 0 #000, 0 1px 0 #000
 		cursor default
 		.buynow
 			color $default-color
 			display inline-block
-			border-bottom 1px dashed $default-color
-			margin-bottom -1px
+			text-decoration none
+			.link-border
+				border-bottom 1px dashed $default-color
+				margin-bottom -1px
 			&:hover
 				text-decoration none
 		.default
@@ -161,6 +199,8 @@ body
 			background $default-hover-color
 		.item-bottom-text .buynow
 			color $default-hover-color
+			.link-border
+				border-bottom-color $default-hover-color
 
 	// Selected
 	&.selected
@@ -192,8 +232,10 @@ body
 	// Disabled
 	&.disabled
 		.item-content
-			opacity 0.5
 			color $disabled-color
+			&:after,
+			.item-text
+				opacity 0.5
 		path
 			cursor default
 		path.border
@@ -202,4 +244,3 @@ body
 			background $disabled-color
 		.item-bottom-text
 			color $disabled-bottom-color
-
