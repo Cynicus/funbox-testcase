@@ -7,11 +7,11 @@ extends base
 
 block content
 	.container
-		.text-center
+		.header.text-center
 			h1.page-title Ты сегодня покормил кота?
-		.large
+		.item-wrapper
 			+item("с курой", 2)
-		.small.large
+		.item-wrapper
 			+item("с фуа-гра", 0.5, "disabled")
-		.small.large
+		.item-wrapper
 			+item("с рыбой", 5)

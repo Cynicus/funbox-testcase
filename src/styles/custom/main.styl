@@ -1,5 +1,8 @@
 @import "normalize"
 
+// NOTE! Packets order on the page, default values are from min to max
+$order = (1 2 3)
+
 // Colors variable
 $bg = #f2f2f2
 $default-color = #1698d9
@@ -10,12 +13,9 @@ $selected-hover-color = #e62e7a
 $disabled-color = #b3b3b3
 $disabled-bottom-color = #ffff66
 
-// Width  variables
+// Size  variables
 $item-width = 320px
-$small = 768px
-$medium = 960px
-$large = 1200px
-
+$max-container-width = 1200px
 
 @font-face
     font-family 'exo_2.0thin'
@@ -40,8 +40,6 @@ html
 	font-family "Trebuchet MS", Helvetica, sans-serif
 	font-size 14px
 	line-height 1.42857
-	@media screen and (min-width: $large)
-		overflow-y hidden
 
 body
 	height 100%
@@ -50,29 +48,30 @@ body
 .container
 	margin-left auto
 	margin-right auto
-	overflow hidden
-	width $item-width
-	@media screen and (min-width: $small)
-		width $small
-	@media screen and (min-width: $medium)
-		width $medium
-	@media screen and (min-width: $large)
-		width $large
-		position relative
-		top 50%
-		transform translateY(-50%)
+	display flex
+	flex-wrap wrap
+	align-items center
+	align-content center
+	justify-content space-around
+	min-height 100% // Instead of height for good mobile support
+	min-width $item-width
+	max-width $max-container-width
+	@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) // And fix for IE10+
+		height 100%
 
-@media screen and (min-width: $small)
-	.small
-		width ( 100% / 2 )
-		float left
-@media screen and (min-width: $large)
-	.large
-		width ( 100% / 3 )
-		float left
+.item-wrapper // Section for order of packets on the page
+	&:nth-child(2)
+		order $order[0]
+	&:nth-child(3)
+		order $order[1]
+	&:nth-child(4)
+		order $order[2]
 
 .text-center
 	text-align center
+
+.header
+	width 100%
 
 .page-title
 	font-size 36px
@@ -86,12 +85,13 @@ body
 
 // Item
 .item
-	width 320px
+	width $item-width
 	height 512px
 	margin-left auto
 	margin-right auto
 	margin-bottom 30px
 	position relative
+	pointer-events none
 
 	// Content block
 	.item-content
@@ -117,10 +117,12 @@ body
 	path.bg
 		fill $bg
 	path.border
+		pointer-events auto
 		fill $default-color
 		cursor pointer
 	path.transparent
 		fill rgba(255,255,255, 0)
+		pointer-events auto
 		cursor pointer
 
 	// Item content
@@ -169,6 +171,7 @@ body
 
 	// Bottom line
 	.item-bottom-text
+		pointer-events auto
 		margin-top 11px
 		margin-right 4px
 		font-size 13px
