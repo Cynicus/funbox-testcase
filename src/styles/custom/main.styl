@@ -16,6 +16,7 @@ $disabled-bottom-color = #ffff66
 // Size  variables
 $item-width = 320px
 $max-container-width = 1200px
+$gutter = 20px
 
 @font-face
     font-family 'exo_2.0thin'
@@ -59,7 +60,8 @@ body
 	@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) // And fix for IE10+
 		height 100%
 
-.item-wrapper // Section for order of packets on the page
+.item-wrapper
+	flex-basis ($item-width + $gutter) // Add gutter between packets for prevent visual sticking
 	&:nth-child(2)
 		order $order[0]
 	&:nth-child(3)
